@@ -97,6 +97,18 @@ app.get("/user/:userID",(req,res)=>{
         res.json({success:true, data: result});
     });
 })
+app.get("/user",(req,res)=>{
+
+  const sql="SELECT * FROM users";
+  connect.query(sql,(err,result)=>{
+      if(err){
+          res.json({success:false});
+          return;
+      }
+      console.log(result);
+      res.json({success:true, data: result});
+  });
+})
 
 
 app.get("/spotify-tracks/:title", (req, res) => {
