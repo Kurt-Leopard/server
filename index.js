@@ -4,17 +4,17 @@ const axios = require('axios');
 const mysql = require('mysql');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-
+require('dotenv').config();
 const app = express();
 app.use(express.json());
 app.use(cors());
 const port = 5000;
 
 const connect = mysql.createConnection({
-    host: "bwnjrjjxgi2cfhsfp7pg-mysql.services.clever-cloud.com",
-    user: "ub5x6hn0zbn3bj1f",
-    password: "ORvp3NX4vqV3ihd836TU",
-    database: "bwnjrjjxgi2cfhsfp7pg"
+    host:process.env.HOST,
+    user:  process.env.USER,
+    password: process.env.PWD,
+    database: process.env.DB
 });
 
 connect.connect((err) => {
