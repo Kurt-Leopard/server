@@ -11,10 +11,10 @@ app.use(cors());
 const port = 5000;
 
 const connect = mysql.createConnection({
-    host: "localhost",
-    user: "mysql",
-    password: "mysql1016!",
-    database: "spotify"
+    host: "bwnjrjjxgi2cfhsfp7pg-mysql.services.clever-cloud.com",
+    user: "ub5x6hn0zbn3bj1f",
+    password: "ORvp3NX4vqV3ihd836TU",
+    database: "bwnjrjjxgi2cfhsfp7pg"
 });
 
 connect.connect((err) => {
