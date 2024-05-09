@@ -34,6 +34,10 @@ connect.connect((err) => {
 
 app.use(express.json());
 app.use(cors());
+app.get('/favicon.ico', (req, res) => {
+  // Return a 204 No Content response
+  res.status(204).end();
+});
 
 // const jwtSecret = 'secret_key';
 
