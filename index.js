@@ -2,8 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
 const mysql = require('mysql');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+// const jwt = require('jsonwebtoken');
+// const bcrypt = require('bcrypt');
 require('dotenv').config();
 const app = express();
 app.use(express.json());
@@ -35,60 +35,60 @@ connect.connect((err) => {
 app.use(express.json());
 app.use(cors());
 
-const jwtSecret = 'secret_key';
+// const jwtSecret = 'secret_key';
 
-const hashPassword = async (password) => {
-  const salt = await bcrypt.genSalt(10);
-  return await bcrypt.hash(password, salt);
-};
+// const hashPassword = async (password) => {
+//   const salt = await bcrypt.genSalt(10);
+//   return await bcrypt.hash(password, salt);
+// };
 
 
-app.post('/register', async (req, res) => {
-    const { fullname, username, password } = req.body;
+// app.post('/register', async (req, res) => {
+//     const { fullname, username, password } = req.body;
   
-      const hashedPassword = await hashPassword(password);
+//       const hashedPassword = await hashPassword(password);
 
-      const sqlInsert = 'INSERT INTO users (fullname, username, password,role) VALUES (?, ?, ?,?)';
-      const result = connect.query(sqlInsert, [fullname, username, hashedPassword,'admin']);
-      if(result.length===0){
-        res.json({mgs: "user not found!"});
-        return;
-      }
-      res.json({ message: 'User registered successfully!', userId: result.insertId }); 
+//       const sqlInsert = 'INSERT INTO users (fullname, username, password,role) VALUES (?, ?, ?,?)';
+//       const result = connect.query(sqlInsert, [fullname, username, hashedPassword,'admin']);
+//       if(result.length===0){
+//         res.json({mgs: "user not found!"});
+//         return;
+//       }
+//       res.json({ message: 'User registered successfully!', userId: result.insertId }); 
  
-  });
+//   });
 
-app.post('/login', async (req, res) => {
-  const { username, password } = req.body;
+// app.post('/login', async (req, res) => {
+//   const { username, password } = req.body;
 
-  try {
-    const sql = 'SELECT * FROM users WHERE username = ?';
-    connect.query(sql, [username], async (err, rows) => {
-      if (err) {
-        console.error('Database error fetching user:', err);
-        return res.json({ message: 'Database error' }); 
-      }
+//   try {
+//     const sql = 'SELECT * FROM users WHERE username = ?';
+//     connect.query(sql, [username], async (err, rows) => {
+//       if (err) {
+//         console.error('Database error fetching user:', err);
+//         return res.json({ message: 'Database error' }); 
+//       }
 
-      if (rows.length === 0) {
-        return res.json({ success:false, message: 'Invalid username or password' });
-      }
+//       if (rows.length === 0) {
+//         return res.json({ success:false, message: 'Invalid username or password' });
+//       }
 
-      const user = rows[0];
+//       const user = rows[0];
 
-      const isMatch = await bcrypt.compare(password, user.password); 
-      if (!isMatch) {
-        return res.status(401).json({ message: 'Invalid username or password' });
-      }
-      console.log(user)
-      const token = jwt.sign({ userId: user.id, username: user.username, role: user.role }, jwtSecret, { expiresIn: '1h' }); 
+//       const isMatch = await bcrypt.compare(password, user.password); 
+//       if (!isMatch) {
+//         return res.status(401).json({ message: 'Invalid username or password' });
+//       }
+//       console.log(user)
+//       const token = jwt.sign({ userId: user.id, username: user.username, role: user.role }, jwtSecret, { expiresIn: '1h' }); 
 
-      res.json({ success: true, token });
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-});
+//       res.json({ success: true, token });
+//     });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: 'Internal server error' });
+//   }
+// });
 
 app.get("/user/:userID",(req,res)=>{
     const userID = req.params.userID;
@@ -131,25 +131,25 @@ app.get("/spotify-tracks/:title", (req, res) => {
 
 
 
-const verifyJWT = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(401).json({ message: 'Unauthorized' });
-  }
+// const verifyJWT = (req, res, next) => {
+//   const authHeader = req.headers.authorization;
+//   if (!authHeader || !authHeader.startsWith('Bearer ')) {
+//     return res.status(401).json({ message: 'Unauthorized' });
+//   }
 
-  const token = authHeader.split(' ')[1];
-  jwt.verify(token, jwtSecret, (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ message: 'Invalid token' });
-    }
-    req.userId = decoded.userId; 
-    next();
-  });
-};
+//   const token = authHeader.split(' ')[1];
+//   jwt.verify(token, jwtSecret, (err, decoded) => {
+//     if (err) {
+//       return res.status(401).json({ message: 'Invalid token' });
+//     }
+//     req.userId = decoded.userId; 
+//     next();
+//   });
+// };
 
-app.get('/protected-route', verifyJWT, (req, res) => {
-  res.json({ message: 'Welcome, authorized user!' });
-});
+// app.get('/protected-route', verifyJWT, (req, res) => {
+//   res.json({ message: 'Welcome, authorized user!' });
+// });
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
