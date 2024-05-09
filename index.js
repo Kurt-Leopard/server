@@ -46,7 +46,7 @@ const hashPassword = async (password) => {
 app.post('/register', async (req, res) => {
     const { fullname, username, password } = req.body;
   
-      const hashedPassword =  hashPassword(password);
+      const hashedPassword = await hashPassword(password);
 
       const sqlInsert = 'INSERT INTO users (fullname, username, password,role) VALUES (?, ?, ?,?)';
       const result = connect.query(sqlInsert, [fullname, username, hashedPassword,'admin']);
