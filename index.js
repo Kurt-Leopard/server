@@ -109,17 +109,6 @@ app.get("/user", (req, res) => {
 })
 
 
-// app.get("/spotify-tracks/:title", (req, res) => {
-//     const { title } = req.params;
-
-//     axios.get(`https://api.spotify.com/v1/search?q=${title}&type=track&limit=10`, {
-//         headers: {
-//             'Authorization': 'Bearer BQC9c5cFqdlJu1vbLT-QSS-1aCcunP20MWLJFAR2S7qh1iBq1dAC0f8E9XVjwkHAPeKr-LMmdmeGvaj4XIleeqOmaFsWLLVZSymARC9PZxX23HwDu167RMpKDM9VlptLO_g0R3Sp_9iCaf0Fh6P4ilDvILGqFVcXOlnN1KuOXxtPJ6wogNizyU5sJsx36Etdw4ZBeYicyUyz2_MtfESsL666RsKWD-7LswWjd4xWJ-k2fKq8Hs8g9aGzwZ4YutSJsTlcDY7ktblyLP0P26QSWmZefzcdHTpTFAn9dITJwL-rPjaJA-xKnovNF7oRTdAmn3EfLYjqX2Yzo01p3Qcvlp0'
-//         }
-//     }).then((response) => {
-//         res.json({ success:true, tracks: response.data.tracks.items});
-//     });
-// });
 
 
 const clientId = process.env.CLIENT_ID;
@@ -163,17 +152,7 @@ app.get('/spotify-tracks/:title', async (req, res) => {
     }
 });
 
-// app.get("/spotify-tracks/:title", (req, res) => {
-//     const { title } = req.params;
 
-//     axios.get(`https://api.spotify.com/v1/search?q=${title}&type=track&limit=10`, {
-//         headers: {
-//             'Authorization': 'Bearer BQC9c5cFqdlJu1vbLT-QSS-1aCcunP20MWLJFAR2S7qh1iBq1dAC0f8E9XVjwkHAPeKr-LMmdmeGvaj4XIleeqOmaFsWLLVZSymARC9PZxX23HwDu167RMpKDM9VlptLO_g0R3Sp_9iCaf0Fh6P4ilDvILGqFVcXOlnN1KuOXxtPJ6wogNizyU5sJsx36Etdw4ZBeYicyUyz2_MtfESsL666RsKWD-7LswWjd4xWJ-k2fKq8Hs8g9aGzwZ4YutSJsTlcDY7ktblyLP0P26QSWmZefzcdHTpTFAn9dITJwL-rPjaJA-xKnovNF7oRTdAmn3EfLYjqX2Yzo01p3Qcvlp0'
-//         }
-//     }).then((response) => {
-//         res.json({ success:true, tracks: response.data.tracks.items});
-//     });
-// });
 
 const verifyJWT = (req, res, next) => {
     const authHeader = req.headers.authorization;
